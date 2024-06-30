@@ -1,0 +1,82 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-color: #18181a;
+}
+.container {
+    background-color: #27272a;
+    border: 2px solid #444;
+}
+/* Start Side Scrollbar */
+::-webkit-scrollbar {
+    width: 12px;
+}
+::-webkit-scrollbar-track {
+    background-color: white;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #0c9;
+    border-radius: 6px;
+}
+/* End Side Scrollbar */
+.head h2{
+    width: fit-content;
+    padding: 5px 20px;
+    margin: 8px auto;
+    background: linear-gradient(to right , #0396a6 , #0396a6  , #ccc );
+    border-radius: 10% 20% 10% 20% / 10% 20% 10% 20%; 
+    color: #fff;
+}
+.form-control,
+form .form-control {
+    background-color: #f6f6f6 !important;
+    border-radius: 10% 20% 10% 20% / 10% 20% 10% 20%; 
+}
+.btn {
+    border-radius: 10% 20% 10% 20% / 10% 20% 10% 20% !important; 
+}
+.form-control:focus {
+    box-shadow: none;
+    border-color: #0c9;
+}
+.price span {
+    border-radius: 6px;
+    background-color: #dc3545;
+}
+.price span::before {
+    content: 'Total: ';
+}
+.price .p {
+    width: 20%;
+}
+.table {
+    overflow: hidden;
+}
+@media (max-width: 997px) {
+    .price .p {
+        width: 18%;
+    }
+    .table {
+        overflow-x: scroll;
+        scrollbar-width: none;
+    }
+}
+@media (max-width: 768px) {
+    .price .p {
+        width: 16%;
+    }
+}
+@media (max-width: 500px) {
+    .price {
+        flex-wrap: wrap;
+    }
+    .price .p {
+        width: 47%;
+    }
+    .price span {
+        display: block;
+        margin: auto;
+    }
+}
