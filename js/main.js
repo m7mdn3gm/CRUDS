@@ -1,19 +1,19 @@
-var titleInput = document.getElementById('title');
-var priceInput = document.getElementById('price');
-var taxesInput = document.getElementById('taxes');
-var adsInput = document.getElementById('ads');
-var discountInput = document.getElementById('discount');
-var totalInput = document.getElementById('total');
-var countInput = document.getElementById('count');
-var categoryInput = document.getElementById('category');
-var searchInput = document.getElementById('search');
-var alertTitle = document.getElementById('alertTitle');
-var alertCategory = document.getElementById('alertCategory');
+const titleInput = document.getElementById('title');
+const priceInput = document.getElementById('price');
+const taxesInput = document.getElementById('taxes');
+const adsInput = document.getElementById('ads');
+const discountInput = document.getElementById('discount');
+const totalInput = document.getElementById('total');
+const countInput = document.getElementById('count');
+const categoryInput = document.getElementById('category');
+const searchInput = document.getElementById('search');
+const alertTitle = document.getElementById('alertTitle');
+const alertCategory = document.getElementById('alertCategory');
 
-var mood = "create";
-var tmp;
+let mood = "create";
+let tmp;
 
-var productList;
+let productList;
 if ( localStorage.getItem("productss") != null ) {
     productList = JSON.parse(localStorage.getItem("productss"));
     displayProduct() 
@@ -24,7 +24,7 @@ if ( localStorage.getItem("productss") != null ) {
 // ===== Total Product =====
 function totalPoduct() {
     if (priceInput.value != '') {
-        var result = (Number(priceInput.value)+Number(taxesInput.value)+Number(adsInput.value)) - (Number(discountInput.value));
+        let result = (Number(priceInput.value)+Number(taxesInput.value)+Number(adsInput.value)) - (Number(discountInput.value));
         totalInput.innerHTML = result;
         totalInput.style.background = "#198754";
     }else {
@@ -36,7 +36,7 @@ function totalPoduct() {
 // ===== Create Product =====
 function createProduct() {
     if (validTitle() && validPrice() && validTaxes() && validAds() && validDiscount() && validcategory() ) {
-        var product = {
+        let product = {
             title: titleInput.value,
             price: priceInput.value,
             taxes: taxesInput.value,
@@ -48,7 +48,7 @@ function createProduct() {
         if (mood === "create") {
             // ===== Count Product =====
             if (countInput.value > 0) {
-                for (var i = 0 ; i < countInput.value ; i++) {
+                for (let i = 0 ; i < countInput.value ; i++) {
                     productList.push(product);
                 }
             }else {
@@ -68,19 +68,19 @@ function createProduct() {
 
 // ===== Display Product =====
 function displayProduct() {
-    var temp = '';
-    for (var i = 0 ; i < productList.length ; i++) {
+    let temp = '';
+    for (let i = 0 ; i < productList.length ; i++) {
         temp += `   <tr>
                         <td>`+(i+1)+`</td>
-                        <td>`+productList[i].title+`</td>
-                        <td>`+productList[i].price+`</td>
-                        <td>`+productList[i].taxes+`</td>
-                        <td>`+productList[i].ads+`</td>
-                        <td>`+productList[i].discount+`</td>
-                        <td>`+productList[i].total+`</td>
-                        <td>`+productList[i].category+`</td>
+                        <td>${productList[i].title}</td>
+                        <td>${productList[i].price}</td>
+                        <td>${productList[i].taxes}</td>
+                        <td>${productList[i].ads}</td>
+                        <td>${productList[i].discount}</td>
+                        <td>${productList[i].total}</td>
+                        <td>${productList[i].category}</td>
                         <td><button onclick = "updateProduct(${i})" class="btn btn-outline-warning">Update</button></td>
-                        <td><button onclick = "deleteProduct(`+i+`)" class="btn btn-outline-danger">Delete</button></td>
+                        <td><button onclick = "deleteProduct(${i})" class="btn btn-outline-danger">Delete</button></td>
                     </tr>`
     }
     document.getElementById('myData').innerHTML = temp;
@@ -88,7 +88,7 @@ function displayProduct() {
     // ===== Add Key Delete All =====
     if ( productList.length > 0) {
         document.getElementById("deletall").innerHTML = `
-        <button onclick = "deleteAll()" class="btn btn-success w-50 d-block mx-auto">Delete All ( <span>`+productList.length+`</span> )</button>`
+        <button onclick = "deleteAll()" class="btn btn-success w-50 d-block mx-auto">Delete All ( <span>${productList.length}</span> )</button>`
     }else {
         document.getElementById("deletall").innerHTML = "";
     }
@@ -150,7 +150,7 @@ function updateProduct(i) {
 }
 
 // ===== Search Product =====
-var searchMood = "title";
+let searchMood = "title";
 
 function getSearchMood(id) {
     if (id == 'searchTitle'){
@@ -164,38 +164,38 @@ function getSearchMood(id) {
 }
 
 function searchProduct() {
-    var temp = '';
+    let temp = '';
     if (searchMood == "title"){
-        var searchVal = searchInput.value.toLowerCase();
-        for (var i = 0 ; i < productList.length ; i++) {
+        let searchVal = searchInput.value.toLowerCase();
+        for (let i = 0 ; i < productList.length ; i++) {
             if (productList[i].title.toLowerCase().includes(searchVal) == true) {
                 temp += `   <tr>
-                <td>`+(i+1)+`</td>
-                <td>`+productList[i].title.toLowerCase().replace(searchVal , '<span class="bg-info text-light">'+searchVal+'</span>')+`</td>
-                <td>`+productList[i].price+`</td>
-                <td>`+productList[i].taxes+`</td>
-                <td>`+productList[i].ads+`</td>
-                <td>`+productList[i].discount+`</td>
-                <td>`+productList[i].total+`</td>
-                <td>`+productList[i].category+`</td>
+                <td>${(i+1)}</td>
+                <td>${productList[i].title.toLowerCase().replace(searchVal , `<span class="bg-info text-light">${searchVal}</span>`)}</td>
+                <td>${productList[i].price}</td>
+                <td>${productList[i].taxes}</td>
+                <td>${productList[i].ads}</td>
+                <td>${productList[i].discount}</td>
+                <td>${productList[i].total}</td>
+                <td>${productList[i].category}</td>
                 <td><button onclick = "updateProduct(${i})" class="btn btn-outline-warning">Update</button></td>
                 <td><button onclick = "deleteProduct(${i})" class="btn btn-outline-danger">Delete</button></td>
             </tr>`
             }
         }
     }else {
-        var searchVal = searchInput.value.toLowerCase();
-        for (var i = 0 ; i < productList.length ; i++) {
+        let searchVal = searchInput.value.toLowerCase();
+        for (let i = 0 ; i < productList.length ; i++) {
             if (productList[i].category.toLowerCase().includes(searchVal) == true) {
                 temp += `   <tr>
                 <td>`+(i+1)+`</td>
-                <td>`+productList[i].title+`</td>
-                <td>`+productList[i].price+`</td>
-                <td>`+productList[i].taxes+`</td>
-                <td>`+productList[i].ads+`</td>
-                <td>`+productList[i].discount+`</td>
-                <td>`+productList[i].total+`</td>
-                <td>`+productList[i].category.toLowerCase().replace(searchVal , '<span class="bg-info text-light">'+searchVal+'</span>')+`</td>
+                <td>${productList[i].title}</td>
+                <td>${productList[i].price}</td>
+                <td>${productList[i].taxes}</td>
+                <td>${productList[i].ads}</td>
+                <td>${productList[i].discount}</td>
+                <td>${productList[i].total}</td>
+                <td>${productList[i].category.toLowerCase().replace(searchVal , `<span class="bg-info text-light">${searchVal}</span>`)}</td>
                 <td><button onclick = "updateProduct(${i})" class="btn btn-outline-warning">Update</button></td>
                 <td><button onclick = "deleteProduct(${i})" class="btn btn-outline-danger">Delete</button></td>
             </tr>`
@@ -205,11 +205,10 @@ function searchProduct() {
     document.getElementById('myData').innerHTML = temp;
 }
 
-
 // ===== Valid Product =====
 titleInput.addEventListener("change" , validTitle );
 function validTitle(){
-    var regextitle = /^[a-zA-Z]+[0-9]{0,6}?$/
+    let regextitle = /^[a-zA-Z]+[0-9]{0,6}?$/
     if(regextitle.test(titleInput.value)){
         titleInput.classList.add('is-valid');
         titleInput.classList.remove('is-invalid');
@@ -225,7 +224,7 @@ function validTitle(){
 
 priceInput.addEventListener("change" , validPrice);
 function validPrice(){
-    var regexprice = /^([0-9]{1,6})$/;
+    let regexprice = /^([0-9]{1,6})$/;
     if(regexprice.test(priceInput.value)){
         priceInput.classList.add('is-valid');
         priceInput.classList.remove('is-invalid');
@@ -239,7 +238,7 @@ function validPrice(){
 
 taxesInput.addEventListener("change" , validTaxes);
 function validTaxes(){
-    var regextaxes = /^([0-9]{1,6})$/;
+    let regextaxes = /^([0-9]{1,6})$/;
     if(regextaxes.test(taxesInput.value)){
         taxesInput.classList.add('is-valid');
         taxesInput.classList.remove('is-invalid');
@@ -253,7 +252,7 @@ function validTaxes(){
 
 adsInput.addEventListener("change" , validAds);
 function validAds(){
-    var regexads = /^([0-9]{1,6})$/;
+    let regexads = /^([0-9]{1,6})$/;
     if(regexads.test(adsInput.value)){
         adsInput.classList.add('is-valid');
         adsInput.classList.remove('is-invalid');
@@ -267,7 +266,7 @@ function validAds(){
 
 discountInput.addEventListener("change" , validDiscount);
 function validDiscount(){
-    var regexdiscount = /^([0-9]{1,6})$/;
+    let regexdiscount = /^([0-9]{1,6})$/;
     if(regexdiscount.test(discountInput.value)){
         discountInput.classList.add('is-valid');
         discountInput.classList.remove('is-invalid');
@@ -281,7 +280,7 @@ function validDiscount(){
 
 countInput.addEventListener("change" , validcount);
 function validcount(){
-    var regexcount = /^([0-9]{1,6})$/;
+    let regexcount = /^([0-9]{1,6})$/;
     if(regexcount.test(countInput.value)){
         countInput.classList.add('is-valid');
         countInput.classList.remove('is-invalid');
@@ -295,8 +294,8 @@ function validcount(){
 
 categoryInput.addEventListener("change" , validcategory );
 function validcategory(){
-    var regextitle = /^[a-zA-Z]+[0-9]{0,6}?$/
-    if(regextitle.test(categoryInput.value)){
+    let regexcategory = /^[a-zA-Z]+[0-9]{0,6}?$/
+    if(regexcategory.test(categoryInput.value)){
         categoryInput.classList.add('is-valid');
         categoryInput.classList.remove('is-invalid');
         alertCategory.classList.add('d-none');
